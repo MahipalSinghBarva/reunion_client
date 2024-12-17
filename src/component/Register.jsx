@@ -23,7 +23,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/v1/user/register`,
+        `https://reunion-server-s2jv.onrender.com/api/v1/user/register`,
         form
       );
       console.log("Registration successful", response.data);

@@ -18,7 +18,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/v1/user/logout`
+        `https://reunion-server-s2jv.onrender.com/api/v1/user/logout`
       );
       alert("Logged out successfully");
       localStorage.removeItem("user");

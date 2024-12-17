@@ -21,6 +21,7 @@ const TaskList = () => {
   const [statusFilter, setStatusFilter] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const token = localStorage.getItem("token");
+  const baseURL = "https://reunion-server-s2jv.onrender.com";
 
   useEffect(() => {
     if (!token) {
@@ -59,7 +60,7 @@ const TaskList = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:3000/api/v1/task/add", form, {
+      await axios.post(`${baseURL}/api/v1/task/add`, form, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -83,9 +84,7 @@ const TaskList = () => {
 
   const fetchTask = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3000/api/v1/task/getall"
-      );
+      const response = await axios.get(`${baseURL}/api/v1/task/getall`);
       setData(response.data);
     } catch (error) {
       console.error("Error while fetching data", error);
@@ -104,17 +103,13 @@ const TaskList = () => {
     console.log(token);
 
     try {
-      await axios.put(
-        `http://localhost:3000/api/v1/task/update/${form._id}`,
-        form,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        }
-      );
+      await axios.put(`${baseURL}/api/v1/task/update/${form._id}`, form, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      });
       alert("Task updated successfully!");
       setupdateTaskPopup(false);
       fetchTask();
@@ -159,7 +154,7 @@ const TaskList = () => {
     try {
       await Promise.all(
         selectedTasks.map((id) =>
-          axios.delete(`http://localhost:3000/api/v1/task/delete/${id}`, {
+          axios.delete(`${baseURL}/api/v1/task/delete/${id}`, {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
@@ -189,7 +184,11 @@ const TaskList = () => {
   }, []);
 
   if (!isAuthenticated) {
-    return <div className="flex justify-center mt-20 font-bold text-xl text-blue-800">You need to sign in to access this page</div>;
+    return (
+      <div className="flex justify-center mt-20 font-bold text-xl text-blue-800">
+        You need to sign in to access this page
+      </div>
+    );
   }
 
   return (

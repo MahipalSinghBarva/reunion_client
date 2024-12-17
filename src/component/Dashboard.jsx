@@ -9,7 +9,7 @@ const Dashboard = () => {
   const fetchTask = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/task/getall"
+        "https://reunion-server-s2jv.onrender.com/api/v1/task/getall"
       );
       setData(response.data);
     } catch (error) {
