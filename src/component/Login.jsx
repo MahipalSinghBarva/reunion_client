@@ -28,10 +28,10 @@ const Login = () => {
       );
       localStorage.setItem("user", response.data.user.name);
       localStorage.setItem("token", response.data.token);
+      navigate("/");
     } catch (error) {
       console.error("Failed to login", error.message);
     }
-    navigate("/");
   };
 
   return (
